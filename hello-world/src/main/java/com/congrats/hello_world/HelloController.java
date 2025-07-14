@@ -21,15 +21,29 @@ public class HelloController {
         return service.getCongratsMessage();
     }
 
-    @GetMapping("/get-hello-world-dto")
-    public ResponseEntity<HelloResponseDTO> helloRequestParam(@RequestParam String name) {
+    @GetMapping("/get-hello-world-response-dto")
+    public ResponseEntity<HelloResponseDTO> getHelloWithResponseDTO(@RequestParam String name) {
         HelloResponseDTO body = new HelloResponseDTO(name);
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
-    @GetMapping("/get-hello-world-path-param/{name}")
-    public ResponseEntity<HelloResponseDTO> helloPathVariable(@PathVariable String name) {
+    @GetMapping("/get-hello-world-response-dto/{name}")
+    public ResponseEntity<HelloResponseDTO> getHelloWithResponseDTO2(@PathVariable String name) {
         HelloResponseDTO body = new HelloResponseDTO(name);
         return ResponseEntity.status(HttpStatus.OK).body(body);
+    }
+
+    @GetMapping("/get-hello-world-dto")
+    public ResponseEntity<HelloResponseDTO> getHelloWithDTO(@RequestParam String name) {
+        HelloRequestDTO request = new HelloRequestDTO(name);
+        HelloResponseDTO response = new HelloResponseDTO(request.getName());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/get-hello-world-dto/{name}")
+    public ResponseEntity<HelloResponseDTO> getHelloWithDTO2(@PathVariable String name) {
+        HelloRequestDTO request = new HelloRequestDTO(name);
+        HelloResponseDTO response = new HelloResponseDTO(request.getName());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
